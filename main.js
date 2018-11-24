@@ -22,8 +22,22 @@ const getAllDetailsOfAnItem = barcode=> {
 	return detailsOfAnItem
 }
 
+const getSummary = (DetailsArray,barcode) =>{
+	const selectedDetails = DetailsArray.filter(e=>e.barcode==barcode)
+	let summary = {}
+	
+	summary['name'] = selectedDetails[0].name
+	summary['price'] = selectedDetails[0].price
+	summary['count'] = selectedDetails.map(e=>e.count).reduce(auxiliary.add,0.00)
+	summary['subtotal'] = auxiliary.getSubtotal(selectedDetails,summary)
+	summary['unit'] = auxiliary.getUnit(selectedDetails,summary)
+	
+	return summary
+}
+
 
 
 module.exports = {
   getAllDetailsOfAnItem: getAllDetailsOfAnItem,
+  getSummary:getSummary
 }
