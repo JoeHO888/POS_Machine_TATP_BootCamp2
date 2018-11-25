@@ -35,9 +35,47 @@ const getSummary = (DetailsArray,barcode) =>{
 	return summary
 }
 
+const createSummaryArray = barcodeArray=>{
+	summaryArray=[]
+	
+	const detailsArray = barcodeArray.map(e=>getAllDetailsOfAnItem(e))
+	const uniqueBarcode = [...new Set(detailsArray.map(e=>e.barcode))] 
+	
+	uniqueBarcode.map(e=>{
+		summaryArray.push(getSummary(detailsArray,e))
+	})
+	
+	return summaryArray
+	
+}
+
+const printReceipt = barcodeArray=>{
+	let receipt = "***<store earning no money>Receipt ***\n"
+	let sum = 0
+	let saving = 0
+	const summaryArray = createSummaryArray(barcodeArray)
+	
+	summaryArray.forEach(
+		e=>{
+			receipt+=auxiliary.createALineOfReceipt(e);
+			sum+=e.subtotal
+			saving+=(e.count*e.price)-e.subtotal
+			receipt+="\n"
+		}
+	)
+	receipt+= '----------------------\n'
+	receipt+= 'Total: '+sum.toFixed(2).toString()+' (yuan)\n'
+	receipt+= 'Saving: '+saving.toFixed(2).toString()+' (yuan)\n'
+	receipt+='**********************'
+	return receipt
+	
+}
 
 
 module.exports = {
   getAllDetailsOfAnItem: getAllDetailsOfAnItem,
-  getSummary:getSummary
+  getSummary:getSummary,
+  createSummaryArray:createSummaryArray,
+  printReceipt:printReceipt
+  
 }

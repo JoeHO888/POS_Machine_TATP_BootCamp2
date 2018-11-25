@@ -40,10 +40,13 @@ const getSubtotal = (selectedDetails,summary)=>{
 	
 }
 
+const createALineOfReceipt = summary=>"Name: "+summary.name+", Quantity: "+summary.count+" "+summary.unit+", Unit price: "+summary.price.toFixed(2).toString()+" (yuan), Subtotal: "+summary.subtotal.toFixed(2).toString()+" (yuan)"
+
 
 module.exports = {
   getPromotionType:getPromotionType,
   getUnit: getUnit,
   add:add,
-  getSubtotal:getSubtotal
+  getSubtotal:getSubtotal,
+  createALineOfReceipt:createALineOfReceipt
 }

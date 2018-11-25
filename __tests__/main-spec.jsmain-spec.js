@@ -96,7 +96,7 @@ it ('should output an obeject with all details', () => {
 it ('should output a summary for a specific barcode', () => {
     expect(main.getSummary(input3,'ITEM000003')).toEqual(text3);
 });
-/*
+
 it ('should output a line of summary', () => {
     expect(auxiliary.createALineOfReceipt(text3)).toEqual(text4);
 });
@@ -139,4 +139,3 @@ it('should print text', () => {
     expect(main.printReceipt(tags)).toEqual(expectText);
   });
 
-*/
